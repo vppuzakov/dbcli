@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "dbcli"
+name = "dbtui"
 dynamic = ["version"]
 description = 'Most popular databases CLI'
 readme = "README.md"
@@ -14,7 +14,7 @@ keywords = [
     "rdbms",
     "cli",
     "tui",
-    "command line interface", 
+    "command line interface",
     "text user interface",
 ]
 authors = [
@@ -29,20 +29,34 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: CPython",
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
-dependencies = []
+dependencies = [
+    "pydantic",
+    "rich",
+    "typer",
+]
 
 [project.urls]
 Documentation = "https://github.com/vppuzakov/dbcli#readme"
 Issues = "https://github.com/vppuzakov/dbcli/issues"
 Source = "https://github.com/vppuzakov/dbcli"
 
+[project.scripts]
+dbtui = "dbtui.cli:main"
+
 [tool.hatch.version]
-path = "dbcli/__about__.py"
+path = "dbtui/__about__.py"
 
 [tool.hatch.envs.default]
+type = "virtual"
+path = ".venvs"
 dependencies = [
   "coverage[toml]>=6.5",
   "pytest",
+  "pytest-testdox>=3.1.0",
+  "pytest-clarity>=1.0.1",
+  "pytest-dotenv>=0.5.2",
+  "pytest-coverage>=0.0",
+  "pytest-asyncio>=0.21.1",
 ]
 [tool.hatch.envs.default.scripts]
 test = "pytest {args:tests}"
@@ -59,14 +73,18 @@ cov = [
 [[tool.hatch.envs.all.matrix]]
 python = ["3.10", "3.11", "3.12"]
 
+
 [tool.hatch.envs.lint]
-detached = true
+detached = false
 dependencies = [
+  "python-lsp-server[all]",
+  "ruff-lsp",
+  "pylsp-mypy",
   "mypy>=1.0.0",
   "ruff>=0.0.243",
 ]
 [tool.hatch.envs.lint.scripts]
-typing = "mypy --install-types --non-interactive {args:dbcli tests}"
+typing = "mypy --install-types --non-interactive {args:dbtui tests}"
 style = [
   "ruff {args:.}",
 ]
@@ -78,6 +96,7 @@ all = [
   "style",
   "typing",
 ]
+
 
 [tool.ruff]
 target-version = "py310"
@@ -115,7 +134,7 @@ unfixable = [
 ]
 
 [tool.ruff.isort]
-known-first-party = ["dbcli"]
+known-first-party = ["dbtui"]
 
 [tool.ruff.flake8-tidy-imports]
 ban-relative-imports = "all"
@@ -125,16 +144,16 @@ ban-relative-imports = "all"
 "tests/**/*" = ["PLR2004", "S101", "TID252"]
 
 [tool.coverage.run]
-source_pkgs = ["dbcli", "tests"]
+source_pkgs = ["dbtui", "tests"]
 branch = true
 parallel = true
 omit = [
-  "dbcli/__about__.py",
+  "dbtui/__about__.py",
 ]
 
 [tool.coverage.paths]
-dbcli = ["dbcli", "*/dbcli/dbcli"]
-tests = ["tests", "*/dbcli/tests"]
+dbtui = ["dbtui", "*/dbtui/dbtui"]
+tests = ["tests", "*/dbtui/tests"]
 
 [tool.coverage.report]
 exclude_lines = [

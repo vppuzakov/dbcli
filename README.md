@@ -1,7 +1,7 @@
-# dbcli
+# dbtui
 
-[![PyPI - Version](https://img.shields.io/pypi/v/dbcli.svg)](https://pypi.org/project/dbcli)
-[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/dbcli.svg)](https://pypi.org/project/dbcli)
+[![PyPI - Version](https://img.shields.io/pypi/v/dbtui.svg)](https://pypi.org/project/dbtui)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/dbtui.svg)](https://pypi.org/project/dbtui)
 
 -----
 
@@ -13,10 +13,10 @@
 ## Installation
 
 ```console
-pip install dbcli
+pip install dbtui
 ```
 
 ## License
 
-`dbcli` is distributed under the terms of the [MIT](https://spdx.org/licenses/MIT.html) license.
+`dbtui` is distributed under the terms of the [MIT](https://spdx.org/licenses/MIT.html) license.
 
